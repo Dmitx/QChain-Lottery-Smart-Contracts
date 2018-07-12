@@ -59,7 +59,7 @@ contract QChainLottery is Ownable {
 
     // if lottery bet period has ended
     modifier canWithdrawal() {
-        require(!isEnded && betPeriodIsEnded());
+        require(!lotteryIsEnded() && betPeriodIsEnded());
         _;
     }
 
@@ -88,6 +88,7 @@ contract QChainLottery is Ownable {
         totalTickets = totalTickets.add(1);
         totalRaised = totalRaised.add(price);
 
+        // return extra eth
         msg.sender.transfer(valueForReturn);
     }
 
