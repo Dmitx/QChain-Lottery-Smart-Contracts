@@ -93,7 +93,7 @@ contract QChainLottery is Ownable {
     }
 
     // finish lottery and withdrawal eth to owner and winner
-    function finishLottery() canWithdrawal external {
+    function finishLottery() canWithdrawal external returns(bool) {
 
         uint256 prizeValue = address(this).balance
             .mul(100 - gainProcent)
@@ -113,8 +113,8 @@ contract QChainLottery is Ownable {
         owner.transfer(valueForOwner);
         emit OwnerEthTransfer(owner, valueForOwner);
 
-        // change state
-        isEnded = true;
+        // change state and return
+        return isEnded = true;
     }
 
     function getWinners() isFinished external view returns(address[]) {
